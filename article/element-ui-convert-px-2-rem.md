@@ -5,7 +5,7 @@
 用sass convert 工具把整個 src 轉為css
 
 加入/修改.babelrc的styleLibraryName路徑
-``` js 
+```js 
 {
   ...,
   "plugins": [
@@ -20,7 +20,7 @@
 在項目的根目錄入口JS裡再次引入 index.css
 再按需引入組件
 
-``` js 
+```js 
 import './assets/el/lib/index.css';
 import { 
   Dropdown,
@@ -37,7 +37,7 @@ Vue.use(DropdownMenu)
 有部分*-arrow-size的變量在加減數值時候要注意該數值也要轉rem
 
 ex:
-``` js
+```css
 <<<< margin-bottom: #{$--tooltip-arrow-size + 6};
 >>>> margin-bottom: #{$--tooltip-arrow-size + 6*0.1rem};
 ```
