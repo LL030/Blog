@@ -1,0 +1,43 @@
+# 來客製化rem的element ui吧
+
+把`element-theme-chalk`clone下來，
+`src/common/var.scss` 裡面的變量轉為對應的rem。
+用sass convert 工具把整個 src 轉為css
+
+加入/修改.babelrc的styleLibraryName路徑
+``` js 
+{
+  ...,
+  "plugins": [
+	{
+		"libraryName": "element-ui",
+		"styleLibraryName": "~src/assets/el/lib"
+	}
+  ]
+}
+```
+
+在項目的根目錄入口JS裡再次引入 index.css
+再按需引入組件
+
+``` js 
+import './assets/el/lib/index.css';
+import { 
+  Dropdown,
+  DropdownMenu,
+} from 'element-ui';
+
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+```
+
+其中的一些坑：
+
+在popper.scss，carousel.scss，tooltip.scss中
+有部分*-arrow-size的變量在加減數值時候要注意該數值也要轉rem
+
+ex:
+``` js
+<<<< margin-bottom: #{$--tooltip-arrow-size + 6};
+>>>> margin-bottom: #{$--tooltip-arrow-size + 6*0.1rem};
+```
