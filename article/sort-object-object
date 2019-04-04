@@ -1,0 +1,29 @@
+# 開發過程的一些坑
+
+對 `[object Object]` 進行 `Array.prototype.sort()` 時, 在不同版本的瀏覽器可能會出現 sort 後結果不一致
+
+例如
+```js 
+var list = [{ n: "a", v: 1 }, { n: "b", v: 1 }, { n: "c", v: 1 }, { n: "d", v: 1 }, { n: "e", v: 1 }, { n: "f", v: 1 }, { n: "g", v: 1 }];
+list.sort(function (a, b) {
+  return a.v - b.v;
+});
+for (var i = 0; i < list.length; i++) {
+  console.log(list[i].n);
+}
+```
+safari,firefox 的 輸出都是
+`a,b,c,d,e,f,g`
+而chrome 的 輸出都是
+`f,a,c,d,e,b,g`
+
+當改用indexOf去排序時候 依然不行
+
+```js 
+list.sort(function (a, b) {
+  return list.indexOf(a)-list.indexOf(b);
+});
+```
+
+
+參考 https://blog.csdn.net/fengjunoo/article/details/78695456
